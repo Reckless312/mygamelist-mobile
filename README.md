@@ -10,4 +10,5 @@
 - Banner, which will be a string that contains a url
 - ReleaseDate, which will be a time object
 - Price, which will be a float
-## 
+## Crud Operations
+- The READ operation will only be executed once at the start of the application, since this app is built with the idea that only one user will have access.
