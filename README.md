@@ -1,9 +1,11 @@
 # Mygamelist
 ## Description
-- When opening the application, the user will be greeted with the home scene, which will contain all of the games available.
-- Clicking on any of the games, will redirect the user to a new screen which will provide more information about the selected item.
+- When opening the application, the user will be greeted with the home scene, which will contain all of the games available, displaying their name and banner.
+- Clicking on any of the games, will redirect the user to a new screen which will provide more information about the game, that being its description, price and release date.
 - There the user will also find the possiblity to update the respective product with new information, or he could also delete entirely from the system.
-- Somewhere on the screen, an option to add a new game will also be available.
+- On the main page, an option to add a new game will also be available.
+- By clicking UPDATE or ADD, the user will be greeted with a new scene where they can fill in / modify the required information.
+- DELETING an object will involve asking the user if he is sure about removing the item.
 ## Domain Details (Video Game)
 - Name, which is a string
 - Description, which is a string
