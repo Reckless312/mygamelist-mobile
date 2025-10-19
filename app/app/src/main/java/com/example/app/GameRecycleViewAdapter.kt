@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class GameRecycleViewAdapter(private val gameList: ArrayList<GameModel>) : RecyclerView.Adapter<GameRecycleViewAdapter.MyViewHolder>() {
+    var onItemClick: ((GameModel) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_view_row, parent, false)
         return MyViewHolder(view)
@@ -18,6 +20,10 @@ class GameRecycleViewAdapter(private val gameList: ArrayList<GameModel>) : Recyc
         val game = gameList[position]
         holder.gameTitle.text = game.title
         Picasso.get().load(game.bannerUrl).into(holder.gameImage)
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(game)
+        }
     }
 
     override fun getItemCount(): Int {

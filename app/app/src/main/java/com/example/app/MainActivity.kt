@@ -1,11 +1,10 @@
 package com.example.app
 
-import android.icu.text.SimpleDateFormat
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -23,6 +22,12 @@ class MainActivity : ComponentActivity() {
         loadGames()
         gameAdapter = GameRecycleViewAdapter(gameList)
         recyclerView.adapter = gameAdapter
+
+        gameAdapter.onItemClick = {
+            val intent = Intent(this, GameDetailsActivity::class.java)
+            intent.putExtra("game", it)
+            startActivity(intent)
+        }
     }
 
     private fun loadGames() {
@@ -32,10 +37,8 @@ class MainActivity : ComponentActivity() {
         val prices = resources.getStringArray(R.array.game_price)
         val releaseDates = resources.getStringArray(R.array.game_release_date)
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
         for (i in 0 until titles.size) {
-            gameList.add(GameModel(titles[i], descriptions[i], images[i], dateFormat.parse(releaseDates[i]), prices[i].toFloat()))
+            gameList.add(GameModel(titles[i], descriptions[i], images[i], releaseDates[i], prices[i].toFloat()))
         }
     }
 }

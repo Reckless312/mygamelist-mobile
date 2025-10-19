@@ -1,11 +1,13 @@
 package com.example.app
 
-import java.util.Date
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class GameModel (
+@Parcelize
+data class GameModel(
     val title: String,
     val description: String,
     val bannerUrl: String,
-    val releaseDate: Date,
-    val price: Float,
-)
+    val releaseDate: String,
+    val price: Float
+) : Parcelable
