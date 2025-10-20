@@ -26,10 +26,14 @@ class GameDetailsActivity : ComponentActivity() {
             val releaseDateView: TextView = findViewById(R.id.textView4)
             val imageView: ImageView = findViewById(R.id.imageView3)
 
+            val priceText = "Price: " + game.price.toString() + "$"
+            val releaseDateText = "Release Date: " + game.releaseDate
+
+
             titleView.text = game.title
             descriptionView.text = game.description
-            priceView.text = game.price.toString()
-            releaseDateView.text = game.releaseDate
+            priceView.text = priceText
+            releaseDateView.text = releaseDateText
             Picasso.get().load(game.bannerUrl).into(imageView)
         }
     }

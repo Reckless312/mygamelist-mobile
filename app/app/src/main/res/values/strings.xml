@@ -4,6 +4,9 @@
     <string name="title">Game Title</string>
     <string name="textview">TextView</string>
     <string name="todo">TODO</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="release_date">Release Date</string>
 
     <string-array name="game_title">
         <item>Persona 3</item>
