@@ -15,11 +15,11 @@ import kotlinx.coroutines.launch
 class GameListViewModel @Inject constructor(
     private val repository: GameRepository) : ViewModel() {
 
-    private val games = repository.getGames()
+    val games = repository.getGames()
     private val _uiEvent = Channel<UiEvent>()
-    private val uiEvent = _uiEvent.receiveAsFlow()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
-    private fun onEvent(event: GameListEvent) {
+    fun onEvent(event: GameListEvent) {
         when(event) {
             is GameListEvent.OnGameClicked -> {
                 sendUiEvent(UiEvent.Navigate(Routes.GAME_DETAIL + "?gameId=${event.game.id}"))

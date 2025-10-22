@@ -1,4 +1,4 @@
-package com.example.app.ui.view
+package com.example.app.ui.view.home_scene
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
