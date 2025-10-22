@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.data.Game
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var gameList: ArrayList<GameModel>
+    private lateinit var gameList: ArrayList<Game>
     private lateinit var gameAdapter: GameRecycleViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,15 @@ class MainActivity : ComponentActivity() {
         val releaseDates = resources.getStringArray(R.array.game_release_date)
 
         for (i in 0 until titles.size) {
-            gameList.add(GameModel(titles[i], descriptions[i], images[i], releaseDates[i], prices[i].toFloat()))
+            gameList.add(
+                Game(
+                    titles[i],
+                    descriptions[i],
+                    images[i],
+                    releaseDates[i],
+                    prices[i].toFloat()
+                )
+            )
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.example.app.data.Game
 import com.squareup.picasso.Picasso
 
 class GameDetailsActivity : ComponentActivity() {
@@ -13,7 +14,7 @@ class GameDetailsActivity : ComponentActivity() {
         setContentView(R.layout.activity_game_details)
 
         val game = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("game", GameModel::class.java)
+            intent.getParcelableExtra("game", Game::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra("game")

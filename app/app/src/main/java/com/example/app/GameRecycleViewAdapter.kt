@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.data.Game
 import com.squareup.picasso.Picasso
 
-class GameRecycleViewAdapter(private val gameList: ArrayList<GameModel>) : RecyclerView.Adapter<GameRecycleViewAdapter.MyViewHolder>() {
-    var onItemClick: ((GameModel) -> Unit)? = null
+class GameRecycleViewAdapter(private val gameList: ArrayList<Game>) : RecyclerView.Adapter<GameRecycleViewAdapter.MyViewHolder>() {
+    var onItemClick: ((Game) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_view_row, parent, false)
