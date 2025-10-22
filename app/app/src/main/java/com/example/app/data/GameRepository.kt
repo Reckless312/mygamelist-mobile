@@ -1,6 +1,8 @@
 package com.example.app.data
 
-class GameRepository(private var games: ArrayList<Game>): GameIRepository {
+import javax.inject.Inject
+
+class GameRepository @Inject constructor(private var games: ArrayList<Game>): GameIRepository {
     override fun insertGame(game: Game) {
         this.games.add(game)
     }

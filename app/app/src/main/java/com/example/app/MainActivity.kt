@@ -24,11 +24,11 @@ class MainActivity : ComponentActivity() {
         gameAdapter = GameRecycleViewAdapter(gameList)
         recyclerView.adapter = gameAdapter
 
-        gameAdapter.onItemClick = {
-            val intent = Intent(this, GameDetailsActivity::class.java)
-            intent.putExtra("game", it)
-            startActivity(intent)
-        }
+//        gameAdapter.onItemClick = {
+//            val intent = Intent(this, GameDetailsActivity::class.java)
+//            intent.putExtra("game", it)
+//            startActivity(intent)
+//        }
     }
 
     private fun loadGames() {
@@ -41,6 +41,7 @@ class MainActivity : ComponentActivity() {
         for (i in 0 until titles.size) {
             gameList.add(
                 Game(
+                    i,
                     titles[i],
                     descriptions[i],
                     images[i],

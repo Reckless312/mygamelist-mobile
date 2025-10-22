@@ -15,23 +15,26 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    // Database creation at some point :>
 
     @Provides
     @Singleton
-    fun provideGameRepository(@ApplicationContext context: Context): GameIRepository{
+    fun provideGames(@ApplicationContext context: Context): ArrayList<Game> {
         val games = ArrayList<Game>()
-
         val titles = context.resources.getStringArray(R.array.game_title)
         val descriptions = context.resources.getStringArray(R.array.game_description)
         val images = context.resources.getStringArray(R.array.game_image)
         val prices = context.resources.getStringArray(R.array.game_price)
         val releaseDates = context.resources.getStringArray(R.array.game_release_date)
 
-        for (i in 0 until titles.size) {
-            games.add(Game(titles[i], descriptions[i], images[i], releaseDates[i], prices[i].toFloat()))
+        for (i in titles.indices) {
+            games.add(Game(id = i, title = titles[i], description = descriptions[i], bannerUrl = images[i], releaseDate = releaseDates[i], price = prices[i].toFloat()))
         }
+        return games
+    }
 
+    @Provides
+    @Singleton
+    fun provideGameRepository(games: ArrayList<Game>): GameIRepository {
         return GameRepository(games)
     }
 }
