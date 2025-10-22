@@ -7,6 +7,8 @@
     <string name="description">Description</string>
     <string name="price">Price</string>
     <string name="release_date">Release Date</string>
+    <string name="update">UPDATE</string>
+    <string name="delete">Delete</string>
 
     <string-array name="game_title">
         <item>Persona 3</item>
