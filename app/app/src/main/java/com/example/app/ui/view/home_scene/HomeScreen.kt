@@ -26,15 +26,9 @@ fun HomeScreen(onNavigate: (UiEvent.Navigate) -> Unit, viewModel: GameListViewMo
         }
     }
 
-    Scaffold(
-        topBar = { TopBar(viewModel) },
-        bottomBar = { BottomBar() },
-        modifier = Modifier.fillMaxSize()
-    ) { padding ->
-        Box(modifier = Modifier.padding(padding)) {
-            RecyclerView(
-                viewModel = viewModel
-            )
+    Scaffold(topBar = { TopBar(viewModel) }, bottomBar = { BottomBar() }, modifier = Modifier.fillMaxSize()) {
+        padding -> Box(modifier = Modifier.padding(padding)) {
+            RecyclerView(viewModel = viewModel)
         }
     }
 }

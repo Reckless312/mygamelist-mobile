@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class AddEditGameViewModel @Inject constructor(
-    private val repository: GameRepository, savedStateHandle: SavedStateHandle
-) : ViewModel(){
+class AddEditGameViewModel @Inject constructor(private val repository: GameRepository, savedStateHandle: SavedStateHandle) : ViewModel(){
     var game by mutableStateOf<Game?>(null)
         private set
 
@@ -30,7 +28,7 @@ class AddEditGameViewModel @Inject constructor(
     var description by mutableStateOf("")
         private set
 
-    var banner_url by mutableStateOf("")
+    var bannerUrl by mutableStateOf("")
         private set
 
     var releaseDate by mutableStateOf("")
@@ -49,7 +47,7 @@ class AddEditGameViewModel @Inject constructor(
                 repository.getGameById(gameId)?.let { game ->
                     title = game.title
                     description = game.description
-                    banner_url = game.bannerUrl
+                    bannerUrl = game.bannerUrl
                     releaseDate = game.releaseDate
                     price = game.price
                     this@AddEditGameViewModel.game = game
@@ -67,7 +65,7 @@ class AddEditGameViewModel @Inject constructor(
                 description = event.description
             }
             is AddEditGameEvent.OnBannerUrlChange -> {
-                banner_url = event.bannerUrl
+                bannerUrl = event.bannerUrl
             }
             is AddEditGameEvent.OnReleaseDateChange -> {
                 releaseDate = event.releaseDate
@@ -81,7 +79,7 @@ class AddEditGameViewModel @Inject constructor(
                     repository.insertGame(Game(
                         title = title,
                         description = description,
-                        bannerUrl = banner_url,
+                        bannerUrl = bannerUrl,
                         releaseDate = releaseDate,
                         price = price,
                         id = -1

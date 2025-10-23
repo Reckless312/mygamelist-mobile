@@ -5,6 +5,8 @@ interface GameIRepository {
 
     fun deleteGame(game: Game)
 
+    fun updateGame(id: Int, game: Game)
+
     fun getGames(): List<Game>
 
     fun getGameById(id: Int): Game?

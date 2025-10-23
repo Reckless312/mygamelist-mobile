@@ -1,10 +1,3 @@
 package com.example.app.data
 
-data class Game(
-    var id: Int,
-    val title: String,
-    val description: String,
-    val bannerUrl: String,
-    val releaseDate: String,
-    val price: Float
-)
+data class Game(var id: Int, var title: String, var description: String, var bannerUrl: String, var releaseDate: String, var price: Float)

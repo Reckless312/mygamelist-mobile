@@ -12,6 +12,16 @@ class GameRepository @Inject constructor(private var games: ArrayList<Game>): Ga
         this.games.remove(game)
     }
 
+    override fun updateGame(id: Int, game: Game) {
+        this.games.find { it.id == id }?.let {
+            it.title = game.title
+            it.description = game.description
+            it.bannerUrl = game.bannerUrl
+            it.releaseDate = game.releaseDate
+            it.price = it.price
+        }
+    }
+
     override fun getGames(): List<Game> {
         return this.games
     }

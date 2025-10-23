@@ -17,17 +17,9 @@ import com.example.app.R
 @Composable
 fun BottomBar(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxWidth()) {
-        BottomAppBar(
-            modifier = Modifier.height(80.dp),
-            containerColor = Color(0xFF0F0F14)
-        ) {
-        }
-        Image(
-            painter = painterResource(id = R.drawable.wave_background),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillBounds
-        )
+        BottomAppBar(modifier = Modifier.height(80.dp), containerColor = Color(0xFF0F0F14)) {}
+        Image(painter = painterResource(id = R.drawable.wave_background), contentDescription = null, modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillBounds)
     }
 }
 

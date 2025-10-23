@@ -14,23 +14,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.app.data.Game
 import com.example.app.data.GameRepository
-import com.example.app.ui.view.home_scene.GameListEvent
 import com.example.app.ui.viewmodel.GameListViewModel
 
 @Composable
 fun RecyclerView(viewModel: GameListViewModel) {
     val games = viewModel.games
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.Black
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
-        ) {
-            items(items = games) { game ->
-                GameItem(game = game, modifier = Modifier.clickable{
+    Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {
+        LazyColumn(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)) {
+            items(items = games) {
+                game -> GameItem(game = game, modifier = Modifier.clickable{
                     viewModel.onEvent(GameListEvent.OnGameClicked(game))
                 })
             }

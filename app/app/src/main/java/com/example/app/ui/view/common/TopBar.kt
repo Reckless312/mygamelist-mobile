@@ -19,18 +19,10 @@ import com.example.app.ui.viewmodel.GameListViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(viewModel: GameListViewModel) {
-    TopAppBar(
-        title = { Text("") },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF0F0F14)),
+    TopAppBar(title = { Text("") }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF0F0F14)),
         actions = {
-            IconButton(onClick = {
-                viewModel.onEvent(GameListEvent.OnAddGameClicked)
-            }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.outline_add_24),
-                    contentDescription = "Add game",
-                    tint = Color.White
-                )
+            IconButton(onClick = { viewModel.onEvent(GameListEvent.OnAddGameClicked) }) {
+                Icon(painter = painterResource(id = R.drawable.outline_add_24), contentDescription = "Add game", tint = Color.White)
             }
         }
     )
