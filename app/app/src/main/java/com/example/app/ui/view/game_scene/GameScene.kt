@@ -1,0 +1,59 @@
+package com.example.app.ui.view.game_scene
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import coil.compose.AsyncImage
+import com.example.app.ui.view.common.BottomBar
+import com.example.app.util.UiEvent
+
+@Composable
+fun GameScene(onPopBackStack: () -> Unit, viewModel: GameSceneViewModel = hiltViewModel()){
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.PopBackStack -> onPopBackStack()
+                else -> Unit
+            }
+        }
+    }
+
+    Scaffold(containerColor = Color.Black, bottomBar = { BottomBar() })
+    { padding ->
+        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(32.dp)
+            ) {
+                AsyncImage(model = viewModel.game.bannerUrl, contentDescription = "Game Banner", modifier = Modifier.fillMaxWidth(), contentScale = ContentScale.FillWidth)
+                Text(text = viewModel.game.title, color = Color.White, fontSize = 24.sp)
+                Text(text = viewModel.game.description, color = Color.White, fontSize = 16.sp)
+                Text(text = "Release Date: " + viewModel.game.releaseDate, color = Color.White, fontSize = 16.sp)
+                Text(text = "Price: " + viewModel.game.price.toString() + "$", color = Color.White, fontSize = 16.sp)
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnUpdateButtonPressed(viewModel.game.id))}) {
+                        Text(text = "Edit")
+                    }
+                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnDeleteButtonPressed(viewModel.game.id))}) {
+                        Text(text = "Delete")
+                    }
+                }
+            }
+        }
+    }
+}

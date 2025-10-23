@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.app.ui.view.common.BottomBar
 import com.example.app.ui.view.common.TopBar
-import com.example.app.ui.viewmodel.GameListViewModel
+import com.example.app.ui.view.home_scene.GameListViewModel
 import com.example.app.util.UiEvent
 
 @Composable

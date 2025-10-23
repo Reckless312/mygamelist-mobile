@@ -1,9 +1,6 @@
-package com.example.app.ui.viewmodel
+package com.example.app.ui.view.add_edit_scene
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
@@ -11,14 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.data.Game
 import com.example.app.data.GameRepository
-import com.example.app.ui.view.add_edit_scene.AddEditGameEvent
 import com.example.app.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.format
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -61,7 +56,6 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameRepos
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun onEvent(event: AddEditGameEvent) {
         when(event) {
             is AddEditGameEvent.OnTitleChange -> {
@@ -114,8 +108,12 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameRepos
                         return@launch
                     }
 
-                    repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl,
-                        releaseDate = releaseDate, price = price.toFloat(), id = -1))
+                    repository.insertGame(
+                        Game(
+                            title = title, description = description, bannerUrl = bannerUrl,
+                            releaseDate = releaseDate, price = price.toFloat(), id = -1
+                        )
+                    )
                     sendUiEvent(UiEvent.PopBackStack)
                 }
             }

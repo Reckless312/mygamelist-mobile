@@ -14,7 +14,7 @@ import com.example.app.R
 import com.example.app.data.Game
 import com.example.app.data.GameRepository
 import com.example.app.ui.view.home_scene.GameListEvent
-import com.example.app.ui.viewmodel.GameListViewModel
+import com.example.app.ui.view.home_scene.GameListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

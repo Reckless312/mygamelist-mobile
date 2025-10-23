@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.app.data.Game
 import com.example.app.data.GameRepository
-import com.example.app.ui.viewmodel.GameListViewModel
+import com.example.app.ui.view.home_scene.GameListViewModel
 
 @Composable
 fun RecyclerView(viewModel: GameListViewModel) {

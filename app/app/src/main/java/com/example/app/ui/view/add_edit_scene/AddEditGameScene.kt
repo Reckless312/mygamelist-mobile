@@ -25,11 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.app.R
 import com.example.app.ui.view.common.BottomBar
-import com.example.app.ui.viewmodel.AddEditGameViewModel
+import com.example.app.ui.view.add_edit_scene.AddEditGameViewModel
 import com.example.app.util.UiEvent
 import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddEditGameScene(onPopBackStack: () -> Unit, viewModel: AddEditGameViewModel = hiltViewModel()){
     val snackbarHostState = remember { SnackbarHostState() }

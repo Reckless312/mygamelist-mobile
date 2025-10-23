@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.app.ui.view.add_edit_scene.AddEditGameScene
+import com.example.app.ui.view.game_scene.GameScene
 import com.example.app.ui.view.home_scene.HomeScreen
 import com.example.app.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,13 @@ class MainActivity : ComponentActivity() {
                     }
                 )){
                     AddEditGameScene(onPopBackStack = { navController.popBackStack() })
+                }
+                composable(Routes.GAME_DETAIL + "?gameId={gameId}", arguments = listOf(
+                    navArgument("gameId") {
+                        type = NavType.IntType
+                        defaultValue = -1
+                    })){
+                    GameScene(onPopBackStack = { navController.popBackStack() })
                 }
             }
         }
