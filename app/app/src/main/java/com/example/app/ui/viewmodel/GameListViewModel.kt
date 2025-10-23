@@ -3,6 +3,7 @@ package com.example.app.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.data.GameRepository
+import com.example.app.ui.view.home_scene.GameListEvent
 import com.example.app.util.Routes
 import com.example.app.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,6 +3,7 @@ package com.example.app.ui.view.home_scene
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,38 +18,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.app.data.Game
-import com.example.app.ui.viewmodel.GameListEvent
+import com.example.app.ui.view.home_scene.GameListEvent
 
 @Composable
-fun GameItem(game: Game, onEvent: (GameListEvent) -> Unit,
-             modifier: Modifier = Modifier) {
+fun GameItem(game: Game, modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF0F0F14)
-        )
+        modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp).width(280.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF0F0F14)),
     ) {
         Column(
-            modifier = Modifier
-                .padding(8.dp)
+            modifier = Modifier.padding(8.dp)
         ) {
             Text(
                 text = game.title,
                 color = Color.White,
                 fontSize = 16.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp)
             )
             AsyncImage(
                 model = game.bannerUrl,
                 contentDescription = "Game Banner",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp)),
+                modifier = Modifier.width(270.dp),
                 contentScale = ContentScale.FillWidth
             )
         }
@@ -66,5 +56,5 @@ fun GameItemPreview() {
         releaseDate = "2015-05-19",
         price = 39.99f
     )
-    GameItem(game = game, onEvent = {})
+    GameItem(game = game)
 }

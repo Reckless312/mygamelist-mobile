@@ -1,4 +1,4 @@
-package com.example.app.ui.viewmodel
+package com.example.app.ui.view.home_scene
 
 import com.example.app.data.Game
 

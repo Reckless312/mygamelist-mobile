@@ -1,7 +1,7 @@
 package com.example.app.data
 
 data class Game(
-    val id: Int,
+    var id: Int,
     val title: String,
     val description: String,
     val bannerUrl: String,

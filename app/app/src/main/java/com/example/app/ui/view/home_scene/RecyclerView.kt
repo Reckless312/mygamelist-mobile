@@ -7,42 +7,30 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.app.data.Game
 import com.example.app.data.GameRepository
-import com.example.app.ui.viewmodel.GameListEvent
+import com.example.app.ui.view.home_scene.GameListEvent
 import com.example.app.ui.viewmodel.GameListViewModel
-import com.example.app.util.UiEvent
 
 @Composable
-fun RecyclerView(onNavigate: (UiEvent.Navigate) -> Unit, viewModel: GameListViewModel = hiltViewModel()) {
+fun RecyclerView(viewModel: GameListViewModel) {
     val games = viewModel.games
-    LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Navigate -> {
-                    onNavigate(event)
-                }
-                else -> Unit
-            }
-        }
-    }
-
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
         ) {
             items(items = games) { game ->
-                GameItem(game = game, onEvent = viewModel::onEvent, modifier = Modifier.clickable{
+                GameItem(game = game, modifier = Modifier.clickable{
                     viewModel.onEvent(GameListEvent.OnGameClicked(game))
                 })
             }
@@ -65,5 +53,5 @@ fun DefaultPreview() {
     val gameRepository = GameRepository(gamesList)
     val viewModel = GameListViewModel(gameRepository)
 
-    RecyclerView(onNavigate = {}, viewModel = viewModel)
+    RecyclerView(viewModel = viewModel)
 }

@@ -6,4 +6,6 @@ interface GameIRepository {
     fun deleteGame(game: Game)
 
     fun getGames(): List<Game>
+
+    fun getGameById(id: Int): Game?
 }
