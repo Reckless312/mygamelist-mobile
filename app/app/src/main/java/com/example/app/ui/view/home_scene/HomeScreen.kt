@@ -18,9 +18,7 @@ fun HomeScreen(onNavigate: (UiEvent.Navigate) -> Unit, viewModel: GameListViewMo
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Navigate -> {
-                    onNavigate(event)
-                }
+                is UiEvent.Navigate -> { onNavigate(event) }
                 else -> Unit
             }
         }

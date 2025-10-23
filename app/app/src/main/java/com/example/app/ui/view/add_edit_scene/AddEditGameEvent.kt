@@ -5,7 +5,7 @@ sealed class AddEditGameEvent {
     data class OnDescriptionChange(val description: String) : AddEditGameEvent()
     data class OnBannerUrlChange(val bannerUrl: String) : AddEditGameEvent()
     data class OnReleaseDateChange(val releaseDate: String) : AddEditGameEvent()
-    data class OnPriceChange(val price: Float) : AddEditGameEvent()
+    data class OnPriceChange(val price: String) : AddEditGameEvent()
 
     object OnSaveGameClick : AddEditGameEvent()
 }

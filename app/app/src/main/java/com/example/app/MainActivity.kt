@@ -34,9 +34,7 @@ class MainActivity : ComponentActivity() {
                         defaultValue = -1
                     }
                 )){
-                    AddEditGameScene(onPopBackStack = {
-                        navController.popBackStack()
-                    })
+                    AddEditGameScene(onPopBackStack = { navController.popBackStack() })
                 }
             }
         }
