@@ -108,12 +108,11 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameRepos
                         return@launch
                     }
 
-                    repository.insertGame(
-                        Game(
-                            title = title, description = description, bannerUrl = bannerUrl,
-                            releaseDate = releaseDate, price = price.toFloat(), id = -1
-                        )
-                    )
+                    game?.let { repository.updateGame(it.id, Game(-1, title, description, bannerUrl, releaseDate, price.toFloat())) }
+
+                    if (game == null) {
+                        repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = -1))
+                    }
                     sendUiEvent(UiEvent.PopBackStack)
                 }
             }

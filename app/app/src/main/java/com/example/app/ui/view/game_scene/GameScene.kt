@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -23,11 +27,16 @@ import com.example.app.ui.view.common.BottomBar
 import com.example.app.util.UiEvent
 
 @Composable
-fun GameScene(onPopBackStack: () -> Unit, viewModel: GameSceneViewModel = hiltViewModel()){
+fun GameScene(onNavigate: (UiEvent.Navigate) -> Unit, onPopBackStack: () -> Unit, viewModel: GameSceneViewModel = hiltViewModel()){
+    val openAlertDialog = remember { mutableStateOf(false) }
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
+                is UiEvent.Navigate -> { onNavigate(event) }
                 is UiEvent.PopBackStack -> onPopBackStack()
+                is UiEvent.ShowDialog -> {
+                    openAlertDialog.value = true
+                }
                 else -> Unit
             }
         }
@@ -49,10 +58,21 @@ fun GameScene(onPopBackStack: () -> Unit, viewModel: GameSceneViewModel = hiltVi
                     Button(onClick = {viewModel.onEvent(GameSceneEvent.OnUpdateButtonPressed(viewModel.game.id))}) {
                         Text(text = "Edit")
                     }
-                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnDeleteButtonPressed(viewModel.game.id))}) {
+                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnDeleteButtonPressed)}) {
                         Text(text = "Delete")
                     }
                 }
+            }
+            if (openAlertDialog.value) {
+                AlertDialogExample(
+                    onDismissRequest = { openAlertDialog.value = false },
+                    onConfirmation = { openAlertDialog.value = false
+                        viewModel.onEvent(GameSceneEvent.OnConfirmDelete(viewModel.game.id))
+                    },
+                    dialogTitle = "Delete Confirmation",
+                    dialogText = "Are you sure you want to delete this item?",
+                    icon = Icons.Default.Info
+                )
             }
         }
     }

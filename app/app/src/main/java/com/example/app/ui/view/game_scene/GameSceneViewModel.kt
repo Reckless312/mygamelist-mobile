@@ -38,10 +38,16 @@ class GameSceneViewModel @Inject constructor(private val repository: GameReposit
     fun onEvent(event: GameSceneEvent) {
         when (event) {
             is GameSceneEvent.OnDeleteButtonPressed -> {
-                // TO DO
+                sendUiEvent(UiEvent.ShowDialog)
             }
             is GameSceneEvent.OnUpdateButtonPressed -> {
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_GAME + "?gameId=${event.id}"))
+            }
+            is GameSceneEvent.OnConfirmDelete -> {
+                repository.getGameById(event.id)?.let {
+                    repository.deleteGame(it)
+                    sendUiEvent(UiEvent.PopBackStack)
+                }
             }
         }
     }

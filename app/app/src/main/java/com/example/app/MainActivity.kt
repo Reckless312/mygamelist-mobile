@@ -42,7 +42,8 @@ class MainActivity : ComponentActivity() {
                         type = NavType.IntType
                         defaultValue = -1
                     })){
-                    GameScene(onPopBackStack = { navController.popBackStack() })
+                    GameScene(onNavigate = {event -> navController.navigate(event.route)},
+                        onPopBackStack = { navController.popBackStack() })
                 }
             }
         }

@@ -24,7 +24,7 @@ class GameListViewModel @Inject constructor(private val repository: GameReposito
                 sendUiEvent(UiEvent.Navigate(Routes.GAME_DETAIL + "?gameId=${event.game.id}"))
             }
             is GameListEvent.OnAddGameClicked -> {
-                sendUiEvent(UiEvent.Navigate(Routes.ADD_GAME))
+                sendUiEvent(UiEvent.Navigate(Routes.ADD_GAME + "?gameId=-1"))
             }
         }
     }
