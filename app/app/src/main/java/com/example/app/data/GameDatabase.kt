@@ -3,7 +3,7 @@ package com.example.app.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [Game::class], version = 1)
+@Database(entities = [Game::class], version = 1, exportSchema = false)
 abstract class GameDatabase: RoomDatabase() {
     abstract val dao: GameDao
 }
