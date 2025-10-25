@@ -16,35 +16,11 @@ fun AlertDialogExample(
     icon: ImageVector,
 ) {
     AlertDialog(
-        icon = {
-            Icon(icon, contentDescription = "Example Icon")
-        },
-        title = {
-            Text(text = dialogTitle)
-        },
-        text = {
-            Text(text = dialogText)
-        },
-        onDismissRequest = {
-            onDismissRequest()
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onConfirmation()
-                }
-            ) {
-                Text("Confirm")
-            }
-        },
-        dismissButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text("Dismiss")
-            }
-        }
+        icon = { Icon(icon, contentDescription = "Example Icon") },
+        title = { Text(text = dialogTitle) },
+        text = { Text(text = dialogText) },
+        onDismissRequest = { onDismissRequest() },
+        confirmButton = { TextButton(onClick = { onConfirmation() }) { Text("Confirm") } },
+        dismissButton = { TextButton(onClick = { onDismissRequest() }) { Text("Dismiss") } }
     )
 }

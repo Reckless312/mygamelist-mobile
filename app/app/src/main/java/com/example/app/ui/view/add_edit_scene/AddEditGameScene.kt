@@ -1,7 +1,5 @@
 package com.example.app.ui.view.add_edit_scene
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.app.R
 import com.example.app.ui.view.common.BottomBar
-import com.example.app.ui.view.add_edit_scene.AddEditGameViewModel
 import com.example.app.util.UiEvent
 import kotlinx.coroutines.launch
 
