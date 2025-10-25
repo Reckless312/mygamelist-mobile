@@ -47,13 +47,18 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameIRepo
         val gameId = savedStateHandle.get<Int>("gameId")!!
         if (gameId != -1) {
             viewModelScope.launch {
-                repository.getGameById(gameId)?.let { game ->
-                    title = game.title
-                    description = game.description
-                    bannerUrl = game.bannerUrl
-                    releaseDate = game.releaseDate
-                    price = game.price.toString()
-                    this@AddEditGameViewModel.game = game
+                try{
+                    repository.getGameById(gameId).collect { game ->
+                        title = game?.title ?: ""
+                        description = game?.description ?: ""
+                        bannerUrl = game?.bannerUrl ?: ""
+                        releaseDate = game?.releaseDate ?: ""
+                        price = game?.price.toString()
+                        this@AddEditGameViewModel.game = game
+                    }
+                } catch (e: Exception) {
+                    println("Failed receiving game: ${e.message}")
+                    sendUiEvent(UiEvent.ShowSnackbar(message = "Failed receiving game"))
                 }
             }
         }
@@ -120,7 +125,13 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameIRepo
                         }
                     }
 
-                    repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = game?.id))
+                    try{
+                        repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = game?.id))
+                    } catch (e: Exception) {
+                        println("Failed inserting game: ${e.message}")
+                        sendUiEvent(UiEvent.ShowSnackbar(message = "Failed inserting game"))
+                        return@launch
+                    }
 
                     sendUiEvent(UiEvent.PopBackStack)
                 }

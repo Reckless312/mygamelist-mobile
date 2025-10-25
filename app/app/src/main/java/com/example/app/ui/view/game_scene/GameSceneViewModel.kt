@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class GameSceneViewModel @Inject constructor(private val repository: GameIRepository, savedStateHandle: SavedStateHandle): ViewModel(){
-    var game by mutableStateOf(Game(-1, "", "", "", "", 0f))
+    var game by mutableStateOf<Game?>(null)
         private set
 
     private val _uiEvent = Channel<UiEvent>()
@@ -28,8 +28,13 @@ class GameSceneViewModel @Inject constructor(private val repository: GameIReposi
         val gameId = savedStateHandle.get<Int>("gameId")!!
         if (gameId != -1) {
             viewModelScope.launch {
-                repository.getGameById(gameId)?.let { game ->
-                    this@GameSceneViewModel.game = game
+                try{
+                    repository.getGameById(gameId).collect {game ->
+                        this@GameSceneViewModel.game = game
+                    }
+                }catch (e: Exception) {
+                    println("Error on retrieving data: ${e.message}")
+                    sendUiEvent(UiEvent.ShowSnackbar("Failed to get game"))
                 }
             }
         }
@@ -45,9 +50,16 @@ class GameSceneViewModel @Inject constructor(private val repository: GameIReposi
             }
             is GameSceneEvent.OnConfirmDelete -> {
                 viewModelScope.launch {
-                    repository.getGameById(event.id)?.let{
-                        repository.deleteGame(it)
-                        sendUiEvent(UiEvent.PopBackStack)
+                    try{
+                        repository.getGameById(event.id).collect{ game ->
+                            if (game != null) {
+                                repository.deleteGame(game)
+                                sendUiEvent(UiEvent.PopBackStack)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        println("Error on deleting data: ${e.message}")
+                        sendUiEvent(UiEvent.ShowSnackbar("Failed to delete game"))
                     }
                 }
             }

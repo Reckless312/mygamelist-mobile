@@ -11,5 +11,5 @@ interface GameIRepository {
 
     suspend fun getGameByTitle(title: String): Game?
 
-    suspend fun getGameById(id: Int): Game?
+    fun getGameById(id: Int): Flow<Game?>
 }
