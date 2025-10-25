@@ -2,7 +2,7 @@ package com.example.app.ui.view.home_scene
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.data.GameRepository
+import com.example.app.data.GameIRepository
 import com.example.app.util.Routes
 import com.example.app.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class GameListViewModel @Inject constructor(private val repository: GameRepository) : ViewModel() {
+class GameListViewModel @Inject constructor(private val repository: GameIRepository) : ViewModel() {
 
     val games = repository.getGames()
     private val _uiEvent = Channel<UiEvent>()

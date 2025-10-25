@@ -1,40 +1,35 @@
 package com.example.app.di
 
-import android.content.Context
-import com.example.app.R
-import com.example.app.data.Game
+import android.app.Application
+import androidx.room.Room
+import com.example.app.data.GameDao
+import com.example.app.data.GameDatabase
 import com.example.app.data.GameIRepository
 import com.example.app.data.GameRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
-    fun provideGames(@ApplicationContext context: Context): ArrayList<Game> {
-        val games = ArrayList<Game>()
-        val titles = context.resources.getStringArray(R.array.game_title)
-        val descriptions = context.resources.getStringArray(R.array.game_description)
-        val images = context.resources.getStringArray(R.array.game_image)
-        val prices = context.resources.getStringArray(R.array.game_price)
-        val releaseDates = context.resources.getStringArray(R.array.game_release_date)
-
-        for (i in titles.indices) {
-            games.add(Game(id = i, title = titles[i], description = descriptions[i], bannerUrl = images[i], releaseDate = releaseDates[i], price = prices[i].toFloat()))
-        }
-        return games
+    fun provideGameDatabase(app: Application): GameDatabase{
+        return Room.databaseBuilder(app, GameDatabase::class.java, "game_db").build()
     }
 
     @Provides
     @Singleton
-    fun provideGameRepository(games: ArrayList<Game>): GameIRepository {
-        return GameRepository(games)
+    fun provideGameDao(db: GameDatabase): GameDao {
+        return db.dao
+    }
+
+    @Provides
+    @Singleton
+    fun provideGameRepository(dao: GameDao): GameIRepository {
+        return GameRepository(dao)
     }
 }

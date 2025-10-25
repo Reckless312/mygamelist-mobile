@@ -1,13 +1,13 @@
 package com.example.app.data
 
+import kotlinx.coroutines.flow.Flow
+
 interface GameIRepository {
-    fun insertGame(game: Game)
+    suspend fun insertGame(game: Game)
 
-    fun deleteGame(game: Game)
+    suspend fun deleteGame(game: Game)
 
-    fun updateGame(id: Int, game: Game)
+    fun getGames(): Flow<List<Game>>
 
-    fun getGames(): List<Game>
-
-    fun getGameById(id: Int): Game?
+    suspend fun getGameById(id: Int): Game?
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.data.Game
-import com.example.app.data.GameRepository
+import com.example.app.data.GameIRepository
 import com.example.app.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @HiltViewModel
-class AddEditGameViewModel @Inject constructor(private val repository: GameRepository, savedStateHandle: SavedStateHandle) : ViewModel(){
+class AddEditGameViewModel @Inject constructor(private val repository: GameIRepository, savedStateHandle: SavedStateHandle) : ViewModel(){
     var game by mutableStateOf<Game?>(null)
         private set
 
@@ -108,11 +108,8 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameRepos
                         return@launch
                     }
 
-                    game?.let { repository.updateGame(it.id, Game(-1, title, description, bannerUrl, releaseDate, price.toFloat())) }
+                    repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = game?.id))
 
-                    if (game == null) {
-                        repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = -1))
-                    }
                     sendUiEvent(UiEvent.PopBackStack)
                 }
             }

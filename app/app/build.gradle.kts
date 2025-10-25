@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.hilt.android)
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
+    implementation(libs.androidx.room.ktx)
     kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

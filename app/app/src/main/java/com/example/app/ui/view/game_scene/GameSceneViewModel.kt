@@ -7,17 +7,17 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.data.Game
-import com.example.app.data.GameRepository
+import com.example.app.data.GameIRepository
 import com.example.app.util.Routes
 import com.example.app.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
-class GameSceneViewModel @Inject constructor(private val repository: GameRepository, savedStateHandle: SavedStateHandle): ViewModel(){
+class GameSceneViewModel @Inject constructor(private val repository: GameIRepository, savedStateHandle: SavedStateHandle): ViewModel(){
     var game by mutableStateOf(Game(-1, "", "", "", "", 0f))
         private set
 
@@ -44,9 +44,11 @@ class GameSceneViewModel @Inject constructor(private val repository: GameReposit
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_GAME + "?gameId=${event.id}"))
             }
             is GameSceneEvent.OnConfirmDelete -> {
-                repository.getGameById(event.id)?.let {
-                    repository.deleteGame(it)
-                    sendUiEvent(UiEvent.PopBackStack)
+                viewModelScope.launch {
+                    repository.getGameById(event.id)?.let{
+                        repository.deleteGame(it)
+                        sendUiEvent(UiEvent.PopBackStack)
+                    }
                 }
             }
         }

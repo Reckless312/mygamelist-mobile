@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -25,18 +24,4 @@ fun GameItem(game: Game, modifier: Modifier = Modifier) {
             AsyncImage(model = game.bannerUrl, contentDescription = "Game Banner", modifier = Modifier.width(270.dp), contentScale = ContentScale.FillWidth)
         }
     }
-}
-
-@Preview
-@Composable
-fun GameItemPreview() {
-    val game = Game(
-        id = 1,
-        title = "The Witcher 3: Wild Hunt",
-        description = "The Witcher 3: Wild Hunt is an action role-playing game set in an open world environment, developed by Polish video game developer CD Projekt Red.",
-        bannerUrl = "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg?t=1738256985",
-        releaseDate = "2015-05-19",
-        price = 39.99f
-    )
-    GameItem(game = game)
 }

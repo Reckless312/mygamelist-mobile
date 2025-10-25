@@ -55,7 +55,7 @@ fun GameScene(onNavigate: (UiEvent.Navigate) -> Unit, onPopBackStack: () -> Unit
                 Text(text = "Release Date: " + viewModel.game.releaseDate, color = Color.White, fontSize = 16.sp)
                 Text(text = "Price: " + viewModel.game.price.toString() + "$", color = Color.White, fontSize = 16.sp)
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnUpdateButtonPressed(viewModel.game.id))}) {
+                    Button(onClick = {viewModel.onEvent(GameSceneEvent.OnUpdateButtonPressed(viewModel.game.id ?: -1))}) {
                         Text(text = "Edit")
                     }
                     Button(onClick = {viewModel.onEvent(GameSceneEvent.OnDeleteButtonPressed)}) {
@@ -67,7 +67,7 @@ fun GameScene(onNavigate: (UiEvent.Navigate) -> Unit, onPopBackStack: () -> Unit
                 AlertDialogExample(
                     onDismissRequest = { openAlertDialog.value = false },
                     onConfirmation = { openAlertDialog.value = false
-                        viewModel.onEvent(GameSceneEvent.OnConfirmDelete(viewModel.game.id))
+                        viewModel.onEvent(GameSceneEvent.OnConfirmDelete(viewModel.game.id ?: -1))
                     },
                     dialogTitle = "Delete Confirmation",
                     dialogText = "Are you sure you want to delete this item?",
