@@ -1,5 +1,6 @@
 package com.example.app.ui.view.add_edit_scene
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,7 +15,9 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @HiltViewModel
@@ -56,6 +59,7 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameIRepo
         }
     }
 
+    @SuppressLint("NewApi")
     fun onEvent(event: AddEditGameEvent) {
         when(event) {
             is AddEditGameEvent.OnTitleChange -> {
@@ -68,7 +72,8 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameIRepo
                 bannerUrl = event.bannerUrl
             }
             is AddEditGameEvent.OnReleaseDateChange -> {
-                releaseDate = event.releaseDate
+                val selectedDate = Instant.ofEpochMilli(event.releaseDate).atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                releaseDate = selectedDate
             }
             is AddEditGameEvent.OnPriceChange -> {
                 price = event.price
@@ -106,6 +111,13 @@ class AddEditGameViewModel @Inject constructor(private val repository: GameIRepo
                     if (price.toFloatOrNull() == null) {
                         sendUiEvent(UiEvent.ShowSnackbar(message = "Price must be a number"))
                         return@launch
+                    }
+
+                    repository.getGameByTitle(title)?.let {
+                        if (it.id != game?.id) {
+                            sendUiEvent(UiEvent.ShowSnackbar(message = "Game with this title already exists"))
+                            return@launch
+                        }
                     }
 
                     repository.insertGame(Game(title = title, description = description, bannerUrl = bannerUrl, releaseDate = releaseDate, price = price.toFloat(), id = game?.id))

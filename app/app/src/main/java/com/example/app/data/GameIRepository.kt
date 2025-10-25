@@ -9,5 +9,7 @@ interface GameIRepository {
 
     fun getGames(): Flow<List<Game>>
 
+    suspend fun getGameByTitle(title: String): Game?
+
     suspend fun getGameById(id: Int): Game?
 }

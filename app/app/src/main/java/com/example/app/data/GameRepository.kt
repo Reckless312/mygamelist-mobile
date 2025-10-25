@@ -16,6 +16,10 @@ class GameRepository @Inject constructor(private val dao: GameDao): GameIReposit
         return dao.getGames()
     }
 
+    override suspend fun getGameByTitle(title: String): Game? {
+        return dao.getGameByTitle(title)
+    }
+
     override suspend fun getGameById(id: Int): Game? {
         return dao.getGameById(id)
     }

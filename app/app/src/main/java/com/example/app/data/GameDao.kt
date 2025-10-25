@@ -18,6 +18,9 @@ interface GameDao {
     @Query("SELECT * FROM game")
     fun getGames(): Flow<List<Game>>
 
+    @Query("SELECT * FROM game WHERE title = :title")
+    suspend fun getGameByTitle(title: String): Game?
+
     @Query("SELECT * FROM game WHERE id = :id")
     suspend fun getGameById(id: Int): Game?
 }
