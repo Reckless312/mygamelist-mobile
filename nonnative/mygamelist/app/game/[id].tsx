@@ -40,7 +40,7 @@ export default function Game(){
                     <TouchableOpacity className="bg-red-600 px-4 py-2 rounded" onPress={(handleDelete)}>
                         <Text className="text-white text-sm">Delete</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="bg-gray-600 px-4 py-2 rounded" onPress={() => console.log('Button 2')}>
+                    <TouchableOpacity className="bg-gray-600 px-4 py-2 rounded" onPress={() => router.push(`/add_update/${game?.id || -1}`)}>
                         <Text className="text-white text-sm">Update</Text>
                     </TouchableOpacity>
                 </View>
