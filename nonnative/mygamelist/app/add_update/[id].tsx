@@ -93,7 +93,7 @@ export default function AddUpdate() {
                     
                     <View className="flex-1 justify-end items-end mb-4">
                         <TouchableOpacity onPress={handleSubmit}>
-                            <Image source={require("@/assets/images/add-icon.png")} className="w-16 h-16"/>
+                            <Image source={require("@/assets/images/checkmark.png")} className="w-12 h-12"/>
                         </TouchableOpacity>
                     </View>
                 </View>
