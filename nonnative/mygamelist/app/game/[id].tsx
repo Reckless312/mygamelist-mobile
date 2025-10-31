@@ -5,9 +5,9 @@ import {useGames} from "@/assets/values/store";
 
 export default function Game(){
     const { id } = useLocalSearchParams();
-    const { getGameById, removeGame } = useGames();
-
-    const game = getGameById(Number(id));
+    const { games, removeGame } = useGames();
+    
+    const game = games.find(g => g.id === Number(id));
 
     const handleDelete = () => {
         Alert.alert('Delete', 'Are you sure you want to delete this game?', [
@@ -37,10 +37,10 @@ export default function Game(){
                 <Text className="text-white text-base mt-2">Release Date: {game.release_date}</Text>
                 <Text className="text-white text-base mt-2">Price: ${game.price}</Text>
                 <View className="flex-row justify-between mt-4">
-                    <TouchableOpacity className="bg-red-600 px-4 py-2 rounded" onPress={(handleDelete)}>
+                    <TouchableOpacity className="bg-red-600 px-4 py-2 rounded" onPress={handleDelete}>
                         <Text className="text-white text-sm">Delete</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="bg-gray-600 px-4 py-2 rounded" onPress={() => router.push(`/add_update/${game?.id || -1}`)}>
+                    <TouchableOpacity className="bg-gray-600 px-4 py-2 rounded" onPress={() => router.push(`/add_update/${game.id}`)}>
                         <Text className="text-white text-sm">Update</Text>
                     </TouchableOpacity>
                 </View>
